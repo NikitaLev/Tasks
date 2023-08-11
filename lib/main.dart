@@ -1336,10 +1336,63 @@ class _Hub_add_link extends State<Hub_add_link> {
         home: Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: const Text(
-              'Link list chenger',
-            ),
             backgroundColor: Colors.green,
+            title: Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    alignment: Alignment.bottomLeft,
+                    child: const Icon(
+                      Icons.arrow_circle_right_outlined,
+                      size: 30,
+                    ),
+                  ),
+                ),
+                Expanded(
+                    flex: 5,
+                    child: RichText(
+                        textDirection: TextDirection.ltr,
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: hub.name,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            TextSpan(
+                              text: '\n${hub.countResources} resources',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 10,
+                              ),
+                            ),
+                          ],
+                        ))),
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    alignment: Alignment.centerRight,
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.arrow_circle_left_outlined,
+                        size: 20,
+                      ),
+                      onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => HubPage(
+                                  hub: hub,
+                                )),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
           body: Container(
               child: Column(
