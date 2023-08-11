@@ -1182,7 +1182,7 @@ class _HubPage extends State<HubPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Expanded(
-                                  flex: 5,
+                                  flex: 3,
                                   child: Container(
                                       alignment: Alignment.centerRight,
                                       child: RichText(
@@ -1213,7 +1213,7 @@ class _HubPage extends State<HubPage> {
                                     padding: EdgeInsets.only(top: 4, left: 5),
                                     alignment: Alignment.centerLeft,
                                     child: const Icon(
-                                      Icons.cancel_outlined,
+                                      Icons.add_link_outlined,
                                       size: 20,
                                     ),
                                   ),
