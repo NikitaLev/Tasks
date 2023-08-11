@@ -33,6 +33,7 @@ dependencies:
   dropdown_model_list: any
   file_picker: ^4.0.4
   shared_preferences: ^2.0.0
+  hexcolor: any
 
 
   # The following adds the Cupertino Icons font to your application.
