@@ -807,7 +807,7 @@ class _Hub_data_save extends State<Hub_data_save> {
                                             text: const TextSpan(
                                               children: [
                                                 TextSpan(
-                                                  text: 'Cansel',
+                                                  text: 'Cancel',
                                                   style: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 16,
@@ -1008,9 +1008,15 @@ class _HubPage extends State<HubPage> {
                   flex: 1,
                   child: Container(
                     alignment: Alignment.centerRight,
-                    child: const Icon(
-                      Icons.arrow_circle_left_outlined,
-                      size: 20,
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.arrow_circle_left_outlined,
+                        size: 20,
+                      ),
+                      onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => main_widget()),
+                      ),
                     ),
                   ),
                 ),
