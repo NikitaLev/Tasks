@@ -5,7 +5,10 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/gestures.dart';
+import 'package:path/path.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 
 void main() {
   runApp(Container(
@@ -48,270 +51,278 @@ class _main_widget extends State<main_widget> {
         debugShowCheckedModeBanner: false,
         home: Scaffold(
           drawer: Drawer(
+              backgroundColor: Color.fromARGB(129, 150, 150, 150),
               child: Column(
-            children: [
-              Expanded(
-                  flex: 1,
-                  child: Row(
-                    children: [
-                      Expanded(
-                          flex: 1,
-                          child: Container(
-                            padding: const EdgeInsets.all(5),
-                            alignment: Alignment.centerLeft,
-                            child: const Icon(
-                              Icons.arrow_circle_right_outlined,
-                              size: 25,
-                            ),
-                          )),
-                      Expanded(
-                          flex: 12,
-                          child: Container(
-                            padding: const EdgeInsets.only(left: 40),
-                            alignment: Alignment.centerLeft,
-                            child: RichText(
-                                textDirection: TextDirection.ltr,
-                                text: const TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: 'KNOWLEDGE',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: '\nHUB',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                )),
-                          )),
-                      Expanded(
-                          flex: 3,
-                          child: Container(
-                            padding: const EdgeInsets.all(20),
-                            alignment: Alignment.topLeft,
-                            child: const Icon(
-                              Icons.cancel_outlined,
-                              size: 25,
-                            ),
-                          ))
-                    ],
-                  )),
-              Expanded(
-                flex: 1,
-                child: Container(
-                    alignment: Alignment.topCenter,
-                    child: const Divider(
-                      // Горизонтальная полоса
-                      color: Color.fromARGB(255, 95, 79, 79),
-                      thickness: 1,
-                      height: 1,
-                      indent: 10,
-                      endIndent: 10,
-                    )),
-              ),
-              Expanded(
-                  flex: 6,
-                  child: Builder(builder: (BuildContext context) {
-                    return Container(
-                      child: ListView.builder(
-                          padding: const EdgeInsets.all(8),
-                          itemCount: hubList.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            Color color = hubList[index].color;
-                            String name = hubList[index].name;
-                            String letter = name[0];
-                            String data =
-                                "${hubList[index].dateTime.day}.${hubList[index].dateTime.month}.${hubList[index].dateTime.year}";
-                            String count =
-                                hubList[index].countResources.toString();
-                            return Container(
-                                margin: EdgeInsets.only(top: 5),
-                                height: 40,
-                                alignment: Alignment.center,
-                                child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      elevation: 0,
-                                      side: BorderSide.none,
-                                      backgroundColor: Colors.white,
-                                    ),
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                HubPage(hub: hubList[index])),
-                                      );
-                                    },
-                                    child: Row(children: [
-                                      Expanded(
-                                          flex: 1,
-                                          child: Stack(
-                                              textDirection: TextDirection.ltr,
-                                              children: <Widget>[
-                                                Container(
-                                                  alignment: Alignment.center,
-                                                  child: Text(
-                                                    letter,
-                                                    style: TextStyle(
-                                                      color: color,
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Container(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          top: 1, right: 1),
-                                                  alignment: Alignment.center,
-                                                  child: Icon(
-                                                    color: color,
-                                                    Icons.circle_outlined,
-                                                    size: 40,
-                                                  ),
-                                                ),
-                                              ])),
-                                      Expanded(
-                                          flex: 2,
-                                          child: RichText(
-                                              textDirection: TextDirection.ltr,
-                                              text: TextSpan(
-                                                children: [
-                                                  TextSpan(
-                                                    text: name,
-                                                    style: const TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                  TextSpan(
-                                                    text: '\n$count resources',
-                                                    style: const TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 10,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ))),
-                                      Expanded(
-                                          flex: 2,
-                                          child: Container(
-                                              margin: EdgeInsets.only(top: 5),
-                                              alignment: Alignment.topCenter,
-                                              child: Text(data,
-                                                  style: const TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 10,
-                                                  )))),
-                                      Expanded(
-                                          flex: 1,
-                                          child: Container(
-                                            margin: EdgeInsets.all(5),
-                                            color: Color.fromARGB(
-                                                255, 224, 224, 224),
-                                            alignment: Alignment.center,
-                                            child: const Icon(
-                                              color: Color.fromARGB(
-                                                  255, 172, 172, 172),
-                                              Icons.delete_outlined,
-                                              size: 25,
-                                            ),
-                                          ))
-                                    ])));
-                          }),
-                    );
-                  })),
-              Expanded(
-                flex: 2,
-                child: Builder(builder: (BuildContext context) {
-                  return Container(
-                    padding: EdgeInsets.all(10),
-                    alignment: Alignment.bottomLeft,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        padding: const EdgeInsets.all(16),
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(15.0),
-                          ),
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Hub_data_save()),
-                        );
-                      },
-                      child: Column(
-                        textDirection: TextDirection.ltr,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                      flex: 1,
+                      child: Row(
                         children: [
                           Expanded(
-                            flex: 1,
-                            child: Container(
-                              alignment: Alignment.topRight,
-                              child: const Icon(
-                                Icons.add_circle,
-                                size: 30,
-                              ),
-                            ),
-                          ),
+                              flex: 1,
+                              child: Container(
+                                padding: const EdgeInsets.all(5),
+                                alignment: Alignment.centerLeft,
+                                child: const Icon(
+                                  Icons.arrow_circle_right_outlined,
+                                  size: 25,
+                                ),
+                              )),
                           Expanded(
-                            flex: 1,
-                            child: Container(
-                                alignment: Alignment.bottomLeft,
+                              flex: 12,
+                              child: Container(
+                                padding: const EdgeInsets.only(left: 40),
+                                alignment: Alignment.centerLeft,
                                 child: RichText(
                                     textDirection: TextDirection.ltr,
                                     text: const TextSpan(
                                       children: [
                                         TextSpan(
-                                          text: 'NEW',
+                                          text: 'KNOWLEDGE',
                                           style: TextStyle(
-                                            color: Colors.white,
+                                            color: Colors.black,
                                             fontSize: 16,
                                           ),
                                         ),
                                         TextSpan(
-                                          text: ' HUB',
+                                          text: '\nHUB',
                                           style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
+                                            color: Colors.black,
+                                            fontSize: 14,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                       ],
-                                    ))),
-                          ),
+                                    )),
+                              )),
                           Expanded(
-                            flex: 1,
-                            child: Container(
-                              alignment: Alignment.bottomLeft,
-                              child: const Icon(
-                                Icons.storage_outlined,
-                                size: 25,
+                              flex: 3,
+                              child: Container(
+                                padding: const EdgeInsets.all(20),
+                                alignment: Alignment.topLeft,
+                                child: const Icon(
+                                  Icons.cancel_outlined,
+                                  size: 25,
+                                ),
+                              ))
+                        ],
+                      )),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                        alignment: Alignment.topCenter,
+                        child: const Divider(
+                          // Горизонтальная полоса
+                          color: Color.fromARGB(255, 95, 79, 79),
+                          thickness: 1,
+                          height: 1,
+                          indent: 10,
+                          endIndent: 10,
+                        )),
+                  ),
+                  Expanded(
+                      flex: 6,
+                      child: Builder(builder: (BuildContext context) {
+                        return Container(
+                          child: ListView.builder(
+                              padding: const EdgeInsets.all(8),
+                              itemCount: hubList.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                Color color = hubList[index].color;
+                                String name = hubList[index].name;
+                                String letter = name[0];
+                                String data =
+                                    "${hubList[index].dateTime.day}.${hubList[index].dateTime.month}.${hubList[index].dateTime.year}";
+                                String count =
+                                    hubList[index].countResources.toString();
+                                return Container(
+                                    margin: EdgeInsets.only(top: 5),
+                                    height: 40,
+                                    alignment: Alignment.center,
+                                    child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          elevation: 0,
+                                          side: BorderSide.none,
+                                          backgroundColor: Colors.white,
+                                        ),
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => HubPage(
+                                                    hub: hubList[index])),
+                                          );
+                                        },
+                                        child: Row(children: [
+                                          Expanded(
+                                              flex: 1,
+                                              child: Stack(
+                                                  textDirection:
+                                                      TextDirection.ltr,
+                                                  children: <Widget>[
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: Text(
+                                                        letter,
+                                                        style: TextStyle(
+                                                          color: color,
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              top: 1, right: 1),
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: Icon(
+                                                        color: color,
+                                                        Icons.circle_outlined,
+                                                        size: 40,
+                                                      ),
+                                                    ),
+                                                  ])),
+                                          Expanded(
+                                              flex: 2,
+                                              child: RichText(
+                                                  textDirection:
+                                                      TextDirection.ltr,
+                                                  text: TextSpan(
+                                                    children: [
+                                                      TextSpan(
+                                                        text: name,
+                                                        style: const TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                      TextSpan(
+                                                        text:
+                                                            '\n$count resources',
+                                                        style: const TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 10,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ))),
+                                          Expanded(
+                                              flex: 2,
+                                              child: Container(
+                                                  margin:
+                                                      EdgeInsets.only(top: 5),
+                                                  alignment:
+                                                      Alignment.topCenter,
+                                                  child: Text(data,
+                                                      style: const TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 10,
+                                                      )))),
+                                          Expanded(
+                                              flex: 1,
+                                              child: Container(
+                                                margin: EdgeInsets.all(5),
+                                                color: Color.fromARGB(
+                                                    255, 224, 224, 224),
+                                                alignment: Alignment.center,
+                                                child: const Icon(
+                                                  color: Color.fromARGB(
+                                                      255, 172, 172, 172),
+                                                  Icons.delete_outlined,
+                                                  size: 25,
+                                                ),
+                                              ))
+                                        ])));
+                              }),
+                        );
+                      })),
+                  Expanded(
+                    flex: 2,
+                    child: Builder(builder: (BuildContext context) {
+                      return Container(
+                        padding: EdgeInsets.all(10),
+                        alignment: Alignment.bottomLeft,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green,
+                            padding: const EdgeInsets.all(16),
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(15.0),
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                  );
-                }),
-              ),
-            ],
-          )),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Hub_data_save()),
+                            );
+                          },
+                          child: Column(
+                            textDirection: TextDirection.ltr,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Container(
+                                  alignment: Alignment.topRight,
+                                  child: const Icon(
+                                    Icons.add_circle,
+                                    size: 30,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Container(
+                                    alignment: Alignment.bottomLeft,
+                                    child: RichText(
+                                        textDirection: TextDirection.ltr,
+                                        text: const TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: 'NEW',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text: ' HUB',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ],
+                                        ))),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Container(
+                                  alignment: Alignment.bottomLeft,
+                                  child: const Icon(
+                                    Icons.storage_outlined,
+                                    size: 25,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }),
+                  ),
+                ],
+              )),
           body: Row(
               textDirection: TextDirection.ltr,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -637,6 +648,7 @@ class HUB {
 
   void addFile(dynamic file) {
     addRes();
+    uploadFile(File(file.toString()));
     files.add(file.toString());
   }
 
@@ -653,6 +665,33 @@ class HUB {
   void removeLink(dynamic link) {
     dellRes();
     links.remove(link.toString());
+  }
+
+  Future<String> uploadFile(File file) async {
+    var request = http.MultipartRequest(
+        'POST', Uri.parse('http://127.0.0.1:5000/upload'));
+    request.files.add(await http.MultipartFile.fromPath('file', file.path));
+    var response = await request.send();
+    if (response.statusCode == 200) {
+      return 'File uploaded successfully!';
+    } else {
+      return 'Failed to upload file.';
+    }
+  }
+
+  static Future<File> downloadFile(String filename) async {
+    var response =
+        await http.get(Uri.parse('http://127.0.0.1:5000/download/$filename'));
+    if (response.statusCode == 200) {
+      var dir = await getApplicationDocumentsDirectory();
+      var filePath = join(dir.path, filename);
+      var file = File(filePath);
+      print(file);
+      await file.writeAsBytes(response.bodyBytes);
+      return file;
+    } else {
+      throw Exception('Failed to download file.');
+    }
   }
 
   static void saveHub(HUB hub) async {
