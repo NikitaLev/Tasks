@@ -50,9 +50,12 @@ class _main_widget extends State<main_widget> {
             drawer: Drawer(
                 backgroundColor: Color.fromARGB(129, 150, 150, 150),
                 child: Column(
+                  textDirection: TextDirection.ltr,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                        flex: 1,
+                        flex: 2,
                         child: Row(
                           children: [
                             Expanded(
@@ -107,7 +110,9 @@ class _main_widget extends State<main_widget> {
                     Expanded(
                       flex: 1,
                       child: Container(
-                          alignment: Alignment.topCenter,
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.blueAccent)),
+                          alignment: Alignment.center,
                           child: const Divider(
                             // Горизонтальная полоса
                             color: Color.fromARGB(255, 95, 79, 79),
@@ -118,209 +123,144 @@ class _main_widget extends State<main_widget> {
                           )),
                     ),
                     Expanded(
-                        flex: 6,
-                        child: Builder(builder: (BuildContext context) {
-                          return Container(
-                            child: ListView.builder(
-                                padding: const EdgeInsets.all(8),
-                                itemCount: hubList.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  Color color = hubList[index].color;
-                                  String name = hubList[index].name;
-                                  String letter = name[0];
-                                  String data =
-                                      "${hubList[index].dateTime.day}.${hubList[index].dateTime.month}.${hubList[index].dateTime.year}";
-                                  String count =
-                                      hubList[index].countResources.toString();
-                                  return Container(
-                                      margin: EdgeInsets.only(top: 5),
-                                      height: 40,
-                                      alignment: Alignment.center,
-                                      child: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                            elevation: 0,
-                                            side: BorderSide.none,
-                                            backgroundColor: Colors.white,
-                                          ),
-                                          onPressed: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) => HubPage(
-                                                      hub: hubList[index])),
-                                            );
-                                          },
-                                          child: Row(children: [
-                                            Expanded(
-                                                flex: 1,
-                                                child: Stack(
-                                                    textDirection:
-                                                        TextDirection.ltr,
-                                                    children: <Widget>[
-                                                      Container(
-                                                        alignment:
-                                                            Alignment.center,
-                                                        child: Text(
-                                                          letter,
-                                                          style: TextStyle(
+                      flex: 23,
+                      child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.blueAccent)),
+                          child: Builder(builder: (BuildContext context) {
+                            return Container(
+                              child: ListView.builder(
+                                  padding: const EdgeInsets.all(8),
+                                  itemCount: hubList.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    Color color = hubList[index].color;
+                                    String name = hubList[index].name;
+                                    String letter = name[0];
+                                    String data =
+                                        "${hubList[index].dateTime.day}.${hubList[index].dateTime.month}.${hubList[index].dateTime.year}";
+                                    String count = hubList[index]
+                                        .countResources
+                                        .toString();
+                                    return Container(
+                                        margin: EdgeInsets.only(top: 5),
+                                        height: 40,
+                                        alignment: Alignment.center,
+                                        child: ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              elevation: 0,
+                                              side: BorderSide.none,
+                                              backgroundColor: Colors.white,
+                                            ),
+                                            onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        HubPage(
+                                                            hub: hubList[
+                                                                index])),
+                                              );
+                                            },
+                                            child: Row(children: [
+                                              Expanded(
+                                                  flex: 1,
+                                                  child: Stack(
+                                                      textDirection:
+                                                          TextDirection.ltr,
+                                                      children: <Widget>[
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          child: Text(
+                                                            letter,
+                                                            style: TextStyle(
+                                                              color: color,
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  top: 1,
+                                                                  right: 1),
+                                                          alignment:
+                                                              Alignment.center,
+                                                          child: Icon(
                                                             color: color,
-                                                            fontSize: 16,
-                                                            fontWeight:
-                                                                FontWeight.bold,
+                                                            Icons
+                                                                .circle_outlined,
+                                                            size: 40,
                                                           ),
                                                         ),
-                                                      ),
-                                                      Container(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                top: 1,
-                                                                right: 1),
-                                                        alignment:
-                                                            Alignment.center,
-                                                        child: Icon(
-                                                          color: color,
-                                                          Icons.circle_outlined,
-                                                          size: 40,
-                                                        ),
-                                                      ),
-                                                    ])),
-                                            Expanded(
-                                                flex: 2,
-                                                child: RichText(
-                                                    textDirection:
-                                                        TextDirection.ltr,
-                                                    text: TextSpan(
-                                                      children: [
-                                                        TextSpan(
-                                                          text: name,
-                                                          style:
-                                                              const TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 16,
-                                                            fontWeight:
-                                                                FontWeight.bold,
+                                                      ])),
+                                              Expanded(
+                                                  flex: 2,
+                                                  child: RichText(
+                                                      textDirection:
+                                                          TextDirection.ltr,
+                                                      text: TextSpan(
+                                                        children: [
+                                                          TextSpan(
+                                                            text: name,
+                                                            style:
+                                                                const TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            ),
                                                           ),
-                                                        ),
-                                                        TextSpan(
-                                                          text:
-                                                              '\n$count resources',
+                                                          TextSpan(
+                                                            text:
+                                                                '\n$count resources',
+                                                            style:
+                                                                const TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 10,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ))),
+                                              Expanded(
+                                                  flex: 2,
+                                                  child: Container(
+                                                      margin: EdgeInsets.only(
+                                                          top: 5),
+                                                      alignment:
+                                                          Alignment.topCenter,
+                                                      child: Text(data,
                                                           style:
                                                               const TextStyle(
                                                             color: Colors.black,
                                                             fontSize: 10,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ))),
-                                            Expanded(
-                                                flex: 2,
-                                                child: Container(
-                                                    margin:
-                                                        EdgeInsets.only(top: 5),
-                                                    alignment:
-                                                        Alignment.topCenter,
-                                                    child: Text(data,
-                                                        style: const TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 10,
-                                                        )))),
-                                            Expanded(
-                                                flex: 1,
-                                                child: Container(
-                                                  margin: EdgeInsets.all(5),
-                                                  color: Color.fromARGB(
-                                                      255, 224, 224, 224),
-                                                  alignment: Alignment.center,
-                                                  child: const Icon(
+                                                          )))),
+                                              Expanded(
+                                                  flex: 1,
+                                                  child: Container(
+                                                    margin: EdgeInsets.all(5),
                                                     color: Color.fromARGB(
-                                                        255, 172, 172, 172),
-                                                    Icons.delete_outlined,
-                                                    size: 25,
-                                                  ),
-                                                ))
-                                          ])));
-                                }),
-                          );
-                        })),
-                    Expanded(
-                      flex: 2,
-                      child: Builder(builder: (BuildContext context) {
-                        return Container(
-                          padding: EdgeInsets.all(10),
-                          alignment: Alignment.bottomLeft,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green,
-                              padding: const EdgeInsets.all(16),
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(15.0),
-                                ),
-                              ),
-                            ),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Hub_data_save()),
-                              );
-                            },
-                            child: Column(
-                              textDirection: TextDirection.ltr,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: Container(
-                                    alignment: Alignment.topRight,
-                                    child: const Icon(
-                                      Icons.add_circle,
-                                      size: 30,
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Container(
-                                      alignment: Alignment.bottomLeft,
-                                      child: RichText(
-                                          textDirection: TextDirection.ltr,
-                                          text: const TextSpan(
-                                            children: [
-                                              TextSpan(
-                                                text: 'NEW',
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 16,
-                                                ),
-                                              ),
-                                              TextSpan(
-                                                text: ' HUB',
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ],
-                                          ))),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Container(
-                                    alignment: Alignment.bottomLeft,
-                                    child: const Icon(
-                                      Icons.storage_outlined,
-                                      size: 25,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      }),
+                                                        255, 224, 224, 224),
+                                                    alignment: Alignment.center,
+                                                    child: const Icon(
+                                                      color: Color.fromARGB(
+                                                          255, 172, 172, 172),
+                                                      Icons.delete_outlined,
+                                                      size: 25,
+                                                    ),
+                                                  ))
+                                            ])));
+                                  }),
+                            );
+                          })),
                     ),
                   ],
                 )),
@@ -432,8 +372,9 @@ class _main_widget extends State<main_widget> {
                         child: Container(
                           child: Row(children: [
                             Expanded(
-                                flex: 2,
-                                child: Container(
+                              flex: 2,
+                              child: Builder(builder: (BuildContext context) {
+                                return Container(
                                   padding: const EdgeInsets.all(10),
                                   alignment: Alignment.bottomLeft,
                                   child: ElevatedButton(
@@ -453,33 +394,169 @@ class _main_widget extends State<main_widget> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Expanded(
-                                          flex: 3,
-                                          child: Container(
-                                            alignment: Alignment.topRight,
-                                            child: const Icon(
-                                              Icons.add_circle,
-                                              color: Colors.blue,
-                                            ),
-                                          ),
-                                        ),
+                                            flex: 4,
+                                            child: Builder(builder:
+                                                (BuildContext context) {
+                                              return Container(
+                                                child: ListView.builder(
+                                                    padding:
+                                                        const EdgeInsets.all(8),
+                                                    itemCount: 2,
+                                                    itemBuilder:
+                                                        (BuildContext context,
+                                                            int index) {
+                                                      Color color =
+                                                          hubList[index].color;
+                                                      String name =
+                                                          hubList[index].name;
+                                                      String letter = name[0];
+                                                      String data =
+                                                          "${hubList[index].dateTime.day}.${hubList[index].dateTime.month}.${hubList[index].dateTime.year}";
+                                                      String count =
+                                                          hubList[index]
+                                                              .countResources
+                                                              .toString();
+                                                      return Container(
+                                                          margin:
+                                                              EdgeInsets.only(
+                                                                  top: 5),
+                                                          height: 30,
+                                                          alignment:
+                                                              Alignment.center,
+                                                          child: ElevatedButton(
+                                                              style:
+                                                                  ElevatedButton
+                                                                      .styleFrom(
+                                                                elevation: 0,
+                                                                side: BorderSide
+                                                                    .none,
+                                                                backgroundColor:
+                                                                    Colors
+                                                                        .white,
+                                                              ),
+                                                              onPressed: () {
+                                                                Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                      builder: (context) =>
+                                                                          HubPage(
+                                                                              hub: hubList[index])),
+                                                                );
+                                                              },
+                                                              child: Row(
+                                                                  children: [
+                                                                    Expanded(
+                                                                        flex: 1,
+                                                                        child: Stack(
+                                                                            textDirection:
+                                                                                TextDirection.ltr,
+                                                                            children: <Widget>[
+                                                                              Container(
+                                                                                padding: const EdgeInsets.only(top: 2, right: 0),
+                                                                                alignment: Alignment.center,
+                                                                                child: Icon(
+                                                                                  color: color,
+                                                                                  Icons.circle,
+                                                                                  size: 25,
+                                                                                ),
+                                                                              ),
+                                                                              Container(
+                                                                                alignment: Alignment.center,
+                                                                                child: Text(
+                                                                                  letter,
+                                                                                  style: TextStyle(
+                                                                                    color: Colors.white,
+                                                                                    fontSize: 10,
+                                                                                    fontWeight: FontWeight.bold,
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ])),
+                                                                    Expanded(
+                                                                        flex: 3,
+                                                                        child: RichText(
+                                                                            textDirection: TextDirection.ltr,
+                                                                            text: TextSpan(
+                                                                              children: [
+                                                                                TextSpan(
+                                                                                  text: name,
+                                                                                  style: const TextStyle(
+                                                                                    color: Colors.black,
+                                                                                    fontSize: 12,
+                                                                                    fontWeight: FontWeight.bold,
+                                                                                  ),
+                                                                                ),
+                                                                                TextSpan(
+                                                                                  text: '\n$count resources',
+                                                                                  style: const TextStyle(
+                                                                                    color: Colors.black,
+                                                                                    fontSize: 8,
+                                                                                  ),
+                                                                                ),
+                                                                              ],
+                                                                            ))),
+                                                                    Expanded(
+                                                                        flex: 1,
+                                                                        child: Container(
+                                                                            margin: EdgeInsets.only(top: 1),
+                                                                            alignment: Alignment.topCenter,
+                                                                            child: Text(data,
+                                                                                style: const TextStyle(
+                                                                                  color: Colors.black,
+                                                                                  fontSize: 7,
+                                                                                )))),
+                                                                  ])));
+                                                    }),
+                                              );
+                                            })),
                                         Expanded(
                                           flex: 2,
                                           child: Container(
-                                            margin: EdgeInsets.only(bottom: 6),
+                                              alignment: Alignment.bottomLeft,
+                                              child: RichText(
+                                                  textDirection:
+                                                      TextDirection.ltr,
+                                                  text: const TextSpan(
+                                                    children: [
+                                                      TextSpan(
+                                                        text: 'CHAT',
+                                                        style: TextStyle(
+                                                          color: Color.fromARGB(
+                                                              255, 0, 0, 0),
+                                                          fontSize: 16,
+                                                        ),
+                                                      ),
+                                                      TextSpan(
+                                                        text: '\nHISTORY',
+                                                        style: TextStyle(
+                                                          color: Color.fromARGB(
+                                                              255, 0, 0, 0),
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ))),
+                                        ),
+                                        Expanded(
+                                          flex: 1,
+                                          child: Container(
                                             alignment: Alignment.bottomLeft,
-                                            child: const Text(
-                                              'Chat History',
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 20,
-                                              ),
+                                            child: const ImageIcon(
+                                              AssetImage(
+                                                  "assets/icon_chat history.png"),
+                                              color: Colors.black,
+                                              size: 30,
                                             ),
                                           ),
                                         ),
                                       ],
                                     ),
                                   ),
-                                )),
+                                );
+                              }),
+                            ),
                             Expanded(
                                 flex: 1,
                                 child: Container(
