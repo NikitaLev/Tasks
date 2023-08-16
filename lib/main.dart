@@ -346,61 +346,82 @@ class _main_widget extends State<main_widget> {
                                   padding: const EdgeInsets.all(10),
                                   alignment: Alignment.bottomLeft,
                                   child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.grey[200],
-                                      padding: const EdgeInsets.all(16),
-                                      shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(15.0),
-                                        ),
-                                      ),
-                                    ),
-                                    onPressed: () {},
-                                    child: Column(
-                                      textDirection: TextDirection.ltr,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          alignment: Alignment.topLeft,
-                                          child: const Text(
-                                            'Profile:',
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 12,
-                                            ),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.grey[200],
+                                        padding: const EdgeInsets.all(16),
+                                        shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(15.0),
                                           ),
                                         ),
-                                        Container(
-                                            alignment: Alignment.topLeft,
-                                            padding: EdgeInsets.only(
-                                                left: 8, top: 5),
-                                            child: RichText(
-                                                textDirection:
-                                                    TextDirection.ltr,
-                                                text: const TextSpan(
-                                                  children: [
-                                                    TextSpan(
-                                                      text: 'Aram Almonai',
-                                                      style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 12,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
+                                      ),
+                                      onPressed: () {},
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: Column(
+                                              textDirection: TextDirection.ltr,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Container(
+                                                  alignment: Alignment.topLeft,
+                                                  child: const Text(
+                                                    'Profile:',
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 12,
                                                     ),
-                                                    TextSpan(
-                                                      text: '\nData Scientist',
-                                                      style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 12,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ))),
-                                      ],
-                                    ),
-                                  ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                    alignment:
+                                                        Alignment.topLeft,
+                                                    padding: EdgeInsets.only(
+                                                        left: 8, top: 5),
+                                                    child: RichText(
+                                                        textDirection:
+                                                            TextDirection.ltr,
+                                                        text: const TextSpan(
+                                                          children: [
+                                                            TextSpan(
+                                                              text:
+                                                                  'Aram Almonai',
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                            ),
+                                                            TextSpan(
+                                                              text:
+                                                                  '\nData Scientist',
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontSize: 12,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ))),
+                                              ],
+                                            ),
+                                          ),
+                                          Expanded(
+                                              child: Container(
+                                            alignment: Alignment.topRight,
+                                            width: 40,
+                                            height: 30,
+                                            child: Image(
+                                                image: AssetImage(
+                                                    'assets/bg.png')),
+                                          ))
+                                        ],
+                                      )),
                                 ),
                               ),
                             ],
